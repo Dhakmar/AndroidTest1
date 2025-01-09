@@ -11,9 +11,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.sql.Time;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView textViewTimer;
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void startTimer(View v) {
-        CountDownTimer countDownTimer = new CountDownTimer(50000, 50) {
+    private void startTimer(View v) {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        countDownTimer = createCountDownTimer(50000, 50);
+        countDownTimer.start();
+    }
+
+    private CountDownTimer createCountDownTimer(int ms, int interval) {
+        return new CountDownTimer(ms, interval) {
             @Override
             public void onTick(long millisUntilFinished) {
-                textViewTimer.setText(String.valueOf(millisUntilFinished / 100));
+                textViewTimer.setText(String.format("%02d:%02d:%02d", millisUntilFinished / 1000 / 3600, millisUntilFinished / 1000 / 60 % 60, millisUntilFinished / 1000 % 60));
             }
 
             @Override
@@ -49,6 +60,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-        countDownTimer.start();
     }
 }
