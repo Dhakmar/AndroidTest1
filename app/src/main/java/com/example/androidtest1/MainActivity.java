@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textViewTimer;
     private EditText work_duration_field;
+    private EditText rest_duration_field;
+    private EditText cycle_amount_field;
     CountDownTimer countDownTimer;
 
     @Override
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         textViewTimer = findViewById(R.id.textViewTimer);
         work_duration_field = findViewById(R.id.work_duration_field);
+        rest_duration_field = findViewById(R.id.rest_duration_field);
+        cycle_amount_field = findViewById(R.id.cycle_amount_field);
+        
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,5 +91,29 @@ public class MainActivity extends AppCompatActivity {
         if (currentValue > 0) {
             work_duration_field.setText(String.valueOf(--currentValue));
         }
+    }
+
+    public void decreaseRestDuration(View view) {
+        int currentValue = Integer.parseInt(rest_duration_field.getText().toString());
+        if (currentValue > 0) {
+            rest_duration_field.setText(String.valueOf(--currentValue));
+        }
+    }
+
+    public void increaseRestDuration(View view) {
+        int currentValue = Integer.parseInt(rest_duration_field.getText().toString());
+        rest_duration_field.setText(String.valueOf(++currentValue));
+    }
+
+    public void decreaseCycles(View view) {
+        int currentValue = Integer.parseInt(cycle_amount_field.getText().toString());
+        if (currentValue > 1) {
+            cycle_amount_field.setText(String.valueOf(--currentValue));
+        }
+    }
+
+    public void increaseCycles(View view) {
+        int currentValue = Integer.parseInt(cycle_amount_field.getText().toString());
+        cycle_amount_field.setText(String.valueOf(++currentValue));
     }
 }

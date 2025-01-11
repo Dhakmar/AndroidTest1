@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="100dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent"
         android:background="@color/aside_background_color"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,15 +21,98 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/cycle_amount_panel_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/cycle_amount"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/cycle_amount_panel"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="20dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/work_duration_panel_text"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cycle_amount_panel_text">
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:autoSizeTextType="uniform"
+            android:backgroundTint="@color/aside_background_color"
+            android:contentDescription="@string/decrease_button"
+            android:onClick="decreaseCycles"
+            android:textColor="@color/blue3"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="4dp" />
+
+        <EditText
+            android:id="@+id/cycle_amount_field"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:ems="3"
+            android:gravity="center"
+            android:inputType="number"
+            android:text="1"
+            android:textColor="@color/black" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:autoSizeTextType="uniform"
+            android:backgroundTint="@color/aside_background_color"
+            android:contentDescription="@string/decrease_button"
+            android:onClick="increaseCycles"
+            android:textColor="@color/blue3"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="4dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rest_duration_panel_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/rest_duration"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cycle_amount_panel" />
+
+    <LinearLayout
+    android:id="@+id/rest_duration_panel"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rest_duration_panel_text">
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:autoSizeTextType="uniform"
+            android:backgroundTint="@color/aside_background_color"
+            android:contentDescription="@string/decrease_button"
+            android:onClick="decreaseRestDuration"
+            android:textColor="@color/blue3"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="4dp" />
 
         <EditText
             android:id="@+id/rest_duration_field"
@@ -41,40 +124,54 @@
             android:text="0"
             android:textColor="@color/black" />
 
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:autoSizeTextType="uniform"
+            android:backgroundTint="@color/aside_background_color"
+            android:contentDescription="@string/decrease_button"
+            android:onClick="increaseRestDuration"
+            android:textColor="@color/blue3"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="4dp" />
+
     </LinearLayout>
 
     <TextView
         android:id="@+id/work_duration_panel_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/work_duration"
         android:textAlignment="center"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/work_duration_panel"
+        android:textSize="11sp"
+
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rest_duration_panel" />
 
     <LinearLayout
         android:id="@+id/work_duration_panel"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="20dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/textViewTimer"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/work_duration_panel_text">
 
         <Button
-            android:id="@+id/decrease_work_duration_btn"
-            style="@style/Widget.AppCompat.Button.Small"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_marginHorizontal="10dp"
-            android:onClick="decreaseWorkDuration"
-            android:background="?attr/homeAsUpIndicator"
+            android:autoSizeTextType="uniform"
             android:backgroundTint="@color/aside_background_color"
             android:contentDescription="@string/decrease_button"
-            android:stateListAnimator="@android:anim/accelerate_interpolator" />
+            android:onClick="decreaseWorkDuration"
+            android:textColor="@color/blue3"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="4dp" />
 
         <EditText
             android:id="@+id/work_duration_field"
@@ -88,27 +185,31 @@
 
         <Button
             android:id="@+id/increase_work_duration_btn"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_marginHorizontal="10dp"
-            android:background="?attr/homeAsUpIndicator"
+            android:autoSizeTextType="uniform"
             android:backgroundTint="@color/aside_background_color"
-            android:contentDescription="@string/increase_button"
+            android:contentDescription="@string/decrease_button"
             android:onClick="increaseWorkDuration"
-            android:rotation="180" />
+            android:rotation="180"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="4dp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewTimer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="248dp"
+        android:layout_marginTop="278dp"
         android:background="@color/aside_background_color"
         android:fontFamily="@font/monomaniac_one"
         android:gravity="center"
         android:text="@string/time_example"
         android:textColor="@color/black"
-        android:textSize="60sp"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_start"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,18 +218,20 @@
     <Button
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginBottom="144dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/aside_background_color"
         android:contentDescription="@string/start_button"
-        android:gravity="center"
         android:text="@string/start"
         android:textAllCaps="true"
         android:textColor="@color/blue3"
         android:textSize="52sp"
         android:textStyle="bold"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTimer"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="5dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

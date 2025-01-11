@@ -5,6 +5,8 @@
     <string name="start">start</string>
     <string name="stop">stop</string>
     <string name="work_duration">Длительность работы</string>
+    <string name="rest_duration">Длительность отдыха</string>
+    <string name="cycle_amount">Количество циклов</string>
     <string name="start_button">start button for timer</string>
     <string name="increase_button">increase button for timer</string>
     <string name="decrease_button">decrease button for timer</string>
