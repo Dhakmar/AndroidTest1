@@ -6,6 +6,9 @@
     <color name="bg">#f1f1f1</color>
     <color name="background_color">#f5f5f5</color>
     <color name="aside_background_color">#EAEAEA</color>
+    <color name="blue3">#6CA3D5</color>
+    <color name="blue4">#6BA3D5</color>
+    <color name="hard_back">#575252</color>
     <color name="my_light_primary">#807773</color>
     <color name="my_light_primary_variant">#788073</color>
     <color name="blue">#3A8EC3</color>

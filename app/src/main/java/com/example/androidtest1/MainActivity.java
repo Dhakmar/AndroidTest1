@@ -3,6 +3,7 @@ package com.example.androidtest1;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -11,11 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.sql.Time;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView textViewTimer;
+    private EditText work_duration_field;
     CountDownTimer countDownTimer;
 
     @Override
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         textViewTimer = findViewById(R.id.textViewTimer);
+        work_duration_field = findViewById(R.id.work_duration_field);
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,15 +48,16 @@ public class MainActivity extends AppCompatActivity {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-        countDownTimer = createCountDownTimer(50000, 50);
+
+        countDownTimer = createCountDownTimer(Integer.parseInt(work_duration_field.getText().toString()) * 1000, 50);
         countDownTimer.start();
     }
 
-    private CountDownTimer createCountDownTimer(int ms, int interval) {
-        return new CountDownTimer(ms, interval) {
+    private CountDownTimer createCountDownTimer(int duration, int interval) {
+        return new CountDownTimer(duration, interval) {
             @Override
             public void onTick(long millisUntilFinished) {
-                textViewTimer.setText(String.format("%02d:%02d:%02d", millisUntilFinished / 1000 / 3600, millisUntilFinished / 1000 / 60 % 60, millisUntilFinished / 1000 % 60));
+                textViewTimer.setText(formatTimeForTimer(millisUntilFinished));
             }
 
             @Override
@@ -60,5 +65,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    private String formatTimeForTimer(long time) {
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(time);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(time);
+
+        return minutes != 0 ? String.format(Locale.ENGLISH, "%02d:%02d",
+                minutes % 60,
+                seconds % 60) : String.valueOf(seconds % 60);
+    }
+
+    public void increaseWorkDuration(View view) {
+        int currentValue = Integer.parseInt(work_duration_field.getText().toString());
+        work_duration_field.setText(String.valueOf(++currentValue));
+    }
+
+    public void decreaseWorkDuration(View view) {
+        int currentValue = Integer.parseInt(work_duration_field.getText().toString());
+        if (currentValue > 0) {
+            work_duration_field.setText(String.valueOf(--currentValue));
+        }
     }
 }
