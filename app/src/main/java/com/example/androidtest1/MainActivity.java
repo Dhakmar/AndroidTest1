@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         work_duration_field = findViewById(R.id.work_duration_field);
         rest_duration_field = findViewById(R.id.rest_duration_field);
         cycle_amount_field = findViewById(R.id.cycle_amount_field);
-        
+
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,16 +50,50 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void startTimer(View v) {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
+    private LinkedList<Round> prepareRounds() {
+        LinkedList<Round> rounds = new LinkedList<>();
+
+        int cycles_amount = Integer.parseInt(cycle_amount_field.getText().toString());
+        if (cycles_amount < 1) {
+            cycles_amount = 1;
         }
 
-        countDownTimer = createCountDownTimer(Integer.parseInt(work_duration_field.getText().toString()) * 1000, 50);
-        countDownTimer.start();
+        for (int i = 0; i < cycles_amount; i++) {
+            int work_duration = Integer.parseInt(work_duration_field.getText().toString());
+            int rest_duration = Integer.parseInt(rest_duration_field.getText().toString());
+
+            rounds.add(new Round(work_duration * 1000, RoundType.WORK));
+            if (rest_duration > 0) {
+                rounds.add(new Round(rest_duration * 1000, RoundType.REST));
+            }
+        }
+
+        return rounds;
     }
 
-    private CountDownTimer createCountDownTimer(int duration, int interval) {
+
+    private void startTimer(View v) {
+        LinkedList<Round> rounds = prepareRounds();
+        if (!rounds.isEmpty()) {
+            if (countDownTimer != null) {
+                countDownTimer.cancel();
+            }
+            startRound(rounds);
+        }
+    }
+
+    private void startRound(LinkedList<Round> rounds) {
+
+        Round round = rounds.poll();
+        if (round != null && round.getDuration() != 0) {
+            countDownTimer = createCountDownTimer(round.getDuration(), 5, rounds);
+            countDownTimer.start();
+            textViewTimer.setBackgroundColor(Integer.parseInt(round.getType().getColor()));
+        }
+    }
+
+
+    private CountDownTimer createCountDownTimer(int duration, int interval, LinkedList<Round> rounds) {
         return new CountDownTimer(duration, interval) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -67,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
+                startRound(rounds);
             }
         };
     }
